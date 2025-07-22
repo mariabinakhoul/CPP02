@@ -93,63 +93,82 @@ bool Fixed::operator!=(const Fixed& other) const
     return (this->fixedp != other.fixedp);
 }
 
-Fixed Fixed::operator+(const Fixed&)
+Fixed Fixed::operator+(const Fixed& other)
 {
-
+	return Fixed(this->toFloat() + other.toFloat());
 }
 
-Fixed Fixed::operator-(const Fixed&)
+Fixed Fixed::operator-(const Fixed& other)
 {
-
+	return Fixed(this->toFloat() - other.toFloat());
 }
 
-Fixed Fixed::operator*(const Fixed&)
+Fixed Fixed::operator*(const Fixed& other)
 {
-
+	return Fixed(this->toFloat() * other.toFloat());
 }
 
-Fixed Fixed::operator/(const Fixed&)
+Fixed Fixed::operator/(const Fixed& other)
 {
-
+	if (other.fixedp == 0)
+	{
+		std::cerr << "Error:division by zero\n";
+		return Fixed(0);
+	}
+	return Fixed(this->toFloat() / other.toFloat());
 }
 
 Fixed& Fixed::operator++()
 {
-
+	this->fixedp += 1;
+	return *this;
 }
 
 Fixed Fixed::operator++(int)
 {
-
+	Fixed tmp = *this;
+	this->fixedp += 1;
+	return tmp;
 }
 
-Fixed& Fixed::operator--(const Fixed&)
+Fixed& Fixed::operator--()
 {
-
+	this->fixedp -= 1;
+	return *this;
 }
 
 Fixed Fixed::operator--(int)
 {
-
+	Fixed tmp = *this;
+	this->fixedp -= 1;
+	return tmp;
 }
 
-static Fixed& min(Fixed&, Fixed&)
+Fixed& Fixed::min(Fixed& first, Fixed& second)
 {
-
+	if (first < second)
+		return (first);
+	return (second);
 }
 
-static const Fixed& min(const Fixed&, const Fixed&)
+const Fixed& Fixed::min(const Fixed& first, const Fixed& second)
 {
-
+	if (first < second)
+		return (first);
+	return (second);
 }
 
-static Fixed& max(Fixed&, Fixed&)
+Fixed& Fixed::max(Fixed& first, Fixed& second)
 {
-
+	if (first > second)
+		return (first);
+	return (second);
 }
 
-static const Fixed& max(const Fixed&, const Fixed&)
+const Fixed& Fixed::max(const Fixed& first, const Fixed& second)
 {
-
+	if (first > second)
+		return (first);
+	return (second);
 }
 		
